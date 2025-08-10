@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - AgriConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+        .confirmation-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .order-item {
+            border-bottom: 1px solid #dee2e6;
+            padding: 15px 0;
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-confirmed {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-leaf text-success me-2"></i>AgriConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="marketplace.html">Marketplace</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="marketplace.html" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-store me-2"></i>Continue Shopping
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-2"></i>Account
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                            <li><a class="dropdown-item" href="register.html">Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="confirmation-section p-5">
+                    <!-- Success Icon -->
+                    <div class="text-center mb-4">
+                        <div class="success-icon">
+                            <i class="fas fa-check fa-2x text-white"></i>
+                        </div>
+                        <h2 class="fw-bold text-success">Order Confirmed!</h2>
+                        <p class="text-muted">Thank you for your order. We'll start processing it right away.</p>
+                    </div>
+
+                    <!-- Order Details -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="fw-bold mb-3">Order Information</h5>
+                            <div class="mb-3">
+                                <strong>Order Number:</strong>
+                                <span id="orderNumber" class="ms-2">Loading...</span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Order Date:</strong>
+                                <span id="orderDate" class="ms-2">Loading...</span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Status:</strong>
+                                <span class="status-badge status-pending ms-2" id="orderStatus">Pending</span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Payment Method:</strong>
+                                <span id="paymentMethod" class="ms-2">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="fw-bold mb-3">Shipping Address</h5>
+                            <div id="shippingAddress">
+                                <p>Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Order Items -->
+                    <h5 class="fw-bold mb-3">Order Items</h5>
+                    <div id="orderItems">
+                        <p>Loading...</p>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Order Summary -->
+                    <div class="row">
+                        <div class="col-md-6 offset-md-6">
+                            <h5 class="fw-bold mb-3">Order Summary</h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">₹0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Delivery Fee:</span>
+                                <span id="deliveryFee">₹50.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Tax:</span>
+                                <span id="tax">₹0.00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold fs-5">
+                                <span>Total:</span>
+                                <span id="total">₹0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="text-center mt-5">
+                        <a href="marketplace.html" class="btn btn-primary me-3">
+                            <i class="fas fa-store me-2"></i>Continue Shopping
+                        </a>
+                        <a href="#" class="btn btn-outline-secondary" onclick="downloadInvoice()">
+                            <i class="fas fa-download me-2"></i>Download Invoice
+                        </a>
+                    </div>
+
+                    <!-- Next Steps -->
+                    <div class="mt-5 p-4 bg-light rounded">
+                        <h6 class="fw-bold mb-3">What happens next?</h6>
+                        <div class="row">
+                            <div class="col-md-3 text-center mb-3">
+                                <i class="fas fa-check-circle text-success fa-2x mb-2"></i>
+                                <p class="small">Order Confirmed</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <i class="fas fa-clock text-warning fa-2x mb-2"></i>
+                                <p class="small">Farmer Processing</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <i class="fas fa-truck text-info fa-2x mb-2"></i>
+                                <p class="small">Out for Delivery</p>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <i class="fas fa-home text-success fa-2x mb-2"></i>
+                                <p class="small">Delivered</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/order-confirmation.js"></script>
+</body>
+</html> 
