@@ -96,15 +96,16 @@ app.use('*', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 // Start server
 const startServer = async () => {
     await connectDB();
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
         console.log(`Server running on port ${PORT}`);
         console.log(`Environment: ${process.env.NODE_ENV}`);
         console.log(`Health check: http://localhost:${PORT}/api/health`);
+        console.log(`Live URL will be available in the webview panel`);
     });
 };
 
