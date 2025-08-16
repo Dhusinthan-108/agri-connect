@@ -104,8 +104,9 @@ const startServer = async () => {
     app.listen(PORT, '0.0.0.0', () => {
         console.log(`Server running on port ${PORT}`);
         console.log(`Environment: ${process.env.NODE_ENV}`);
-        console.log(`Health check: http://localhost:${PORT}/api/health`);
+        console.log(`Health check: http://0.0.0.0:${PORT}/api/health`);
         console.log(`Live URL will be available in the webview panel`);
+        console.log(`AgriConnect is ready to serve!`);
     });
 };
 
